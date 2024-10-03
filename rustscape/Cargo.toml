@@ -1,0 +1,33 @@
+cargo-features = ["different-binary-name"]
+
+[package]
+name = "rustscape"
+version.workspace = true
+edition.workspace = true
+
+[features]
+default = ["exe"]
+exe = ["dll"]
+dll = []
+
+[[bin]]
+name = "rustscape"
+filename = "rustscape"
+path = "src/main.rs"
+required-features = ["exe"]
+
+[lib]
+name = "rustscape_dll"
+filename = "rustscape"
+crate-type = ["cdylib"]
+
+[dependencies]
+macros = { path = "../crates/macros" }
+thiserror.workspace = true
+anyhow.workspace = true
+
+[dependencies.windows]
+workspace = true
+features = [
+    "Win32_Foundation",
+]
